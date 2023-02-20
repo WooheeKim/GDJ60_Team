@@ -7,8 +7,14 @@ public class BoardDTO {
 	private String writer;
 	private String regDate;
 	private Long hit;
+	private BoardDTO boardDTO;
 	
-	
+	public BoardDTO getBoardDTO() {
+		return boardDTO;
+	}
+	public void setBoardDTO(BoardDTO boardDTO) {
+		this.boardDTO = boardDTO;
+	}
 	public Long getNum() {
 		return num;
 	}
