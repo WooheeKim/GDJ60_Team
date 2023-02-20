@@ -37,7 +37,28 @@ public class BoardService {
 	public int setBoardAdd(BoardDTO boardDTO, MultipartFile pic) throws Exception {
 		int result = boardDAO.setBoardAdd(boardDTO);
 		
-		
+		if(!pic.isEmpty()) { 
+
+			String realPath = servletContext.getRealPath("resources/upload/board");
+			System.out.println(realPath);
+			String fileName = fileManager.fileSave(pic, realPath);
+			
+			BoardImgDTO boardImgDTO = new BoardImgDTO();
+			boardImgDTO.setFileName(fileName);
+			boardImgDTO.setOriName(pic.getOriginalFilename());
+			boardImgDTO.setNum(boardDTO.getNum());
+			
+			result = boardDAO.setBoardImgAdd(boardImgDTO);
+		}
+		return result;
+	}
+	
+	public int setBoardUpdate(BoardDTO boardDTO) throws Exception {
+		return boardDAO.setBoardUpdate(boardDTO);
+	}
+	
+	public int setBoardDelete(BoardDTO boardDTO) throws Exception {
+		return boardDAO.setBoardDelete(boardDTO);
 	}
 	
 }

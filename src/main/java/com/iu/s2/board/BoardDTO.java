@@ -7,13 +7,14 @@ public class BoardDTO {
 	private String writer;
 	private String regDate;
 	private Long hit;
-	private BoardDTO boardDTO;
+	private BoardImgDTO boardImgDTO;
 	
-	public BoardDTO getBoardDTO() {
-		return boardDTO;
+	
+	public BoardImgDTO getBoardImgDTO() {
+		return boardImgDTO;
 	}
-	public void setBoardDTO(BoardDTO boardDTO) {
-		this.boardDTO = boardDTO;
+	public void setBoardImgDTO(BoardImgDTO boardImgDTO) {
+		this.boardImgDTO = boardImgDTO;
 	}
 	public Long getNum() {
 		return num;

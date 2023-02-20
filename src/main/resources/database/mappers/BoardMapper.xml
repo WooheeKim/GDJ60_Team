@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+  <mapper namespace="com.iu.s2.board.BoardDAO">
+  	<sql id="searchCondition">
+  		
+  		<if test="kind == 'contents'">
+  			WHERE CONTENTS LIKE '%' || #{search} || '%'
+  		</if>
+  		
+  		<if test="kind == 'title'">
+  			WHERE TITLE LIKE '%' || #{search} || '%'
+  		</if>  	
+  	
+  	</sql>
+  	
+  	<sql id="searchCondition2">
+  		WHERE  
+			<choose>
+				<when test="kind == 'contents'">
+					CONTENTS
+				</when>
+				<otherwise>
+					TITLE
+				</otherwise>
+			</choose>
+		LIKE '%' || #{search} || '%'
+  	
+  	</sql>
+  	
+  	<select id="getBoardCount" parameterType="Pager" resultType="Long">
+  		SELECT COUNT(NUM) FROM NOTICE
+  		<include refid="searchCondition"></include>
+  		
+  		
+  	</select>
+  	
+  	<select id="getBoardList" parameterType="Pager" resultType="BoardDTO">
+  		SELECT * FROM 
+			(
+				SELECT ROWNUM R, B.* FROM
+					(
+						SELECT * FROM NOTICE
+						<include refid="searchCondition"></include>
+						
+						
+						ORDER BY NUM DESC
+					) B
+			)
+		WHERE R BETWEEN #{startRow} AND #{lastRow}
+  	</select>
+  
+  	<select id="getBoardDetail" parameterType="BoardDTO" resultMap="boardDetailResult" >
+  		SELECT B.*, BI.*
+		FROM NOTICE B
+			LEFT OUTER JOIN
+			BOARDIMG BI
+			ON (B.NUM = BI.NUM)
+		WHERE B.NUM = #{num}
+  	</select>
+  	
+  	<resultMap type="BoardDTO" id="boardDetailResult">
+  		<!-- Primary key -->
+  		<id column="NUM" property="num"/>
+  		<!-- 그외 나머지 -->
+  		<result column="TITLE," property="title"/>
+  		<result column="CONTENTS" property="contents"/>
+  		<result column="WRITER" property="writer"/>
+  		<result column="REGDATE" property="regDate"/>
+  		<result column="HIT" property="hit"/>
+  		<!-- 1:1 -->
+  		<association property="boardImgDTO" javaType="BoardImgDTO">
+  			<id column="FILENUM" property="fileNum"/>
+  			<result column="FILENAME" property="fileName"/>
+  			<result column="ORINAME" property="oriName"/>
+  		</association>
+  		<!-- 1:N -->
+  		<!-- <collection property=""></collection> -->
+  	</resultMap>
+  	
+  	<insert id="setBoardAdd" parameterType="BoardDTO">
+  		<selectKey keyProperty="num" resultType="Long" order="BEFORE">
+  			SELECT BOARD_SEQ.NEXTVAL FROM DUAL
+  		</selectKey>
+  		INSERT INTO NOTICE(NUM, TITLE, CONTENTS, WRITER, REGDATE, HIT)
+  		VALUES (#{num}, #{title}, #{contents}, #{writer}, #{regDate}, #{hit})
+  	</insert>
+  	
+  	<delete id="setBoardDelete" parameterType="BoardDTO">
+  		DELETE NOTICE WHERE NUM=#{num}
+  	</delete>
+  	
+  	<update id="setBoardUpdate" parameterType="BoardDTO">
+  		UPDATE NOTICE SET TITLE=#{title}, CONTENTS=#{contents}, WRITER=#{writer}, REGDATE=#{regDate}, HIT=#{hit}
+  		WHERE NUM=#{num}
+  	</update>
+  	
+  	<insert id="setBoardImgAdd" parameterType="BoardImgDTO">
+  		INSERT INTO BOARDIMG
+  		VALUES (BOARD_SEQ.NEXTVAL, #{num}, #{fileName}, #{oriName})
+  	</insert>
+  
+  </mapper>

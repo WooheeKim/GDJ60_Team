@@ -6,10 +6,7 @@
 	<title>Home</title>
 </head>
 <body>
-<h1>
-	Hello world!  
-</h1>
-<a href="">글목록보기</a>
-<P>  The time on the server is ${serverTime}. </P>
+
+<a href="/board/list">글목록보기</a>
 </body>
 </html>
