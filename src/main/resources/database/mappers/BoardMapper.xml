@@ -38,34 +38,27 @@
   	</select>
   	
   	<select id="getBoardList" parameterType="Pager" resultType="BoardDTO">
-  		SELECT * FROM 
-			(
-				SELECT ROWNUM R, B.* FROM
-					(
-						SELECT * FROM NOTICE
-						<include refid="searchCondition"></include>
-						
-						
-						ORDER BY NUM DESC
-					) B
-			)
-		WHERE R BETWEEN #{startRow} AND #{lastRow}
+  		SELECT NUM, TITLE, WRITER, REGDATE, HIT
+  		FROM NOTICE 
+		
   	</select>
   
   	<select id="getBoardDetail" parameterType="BoardDTO" resultMap="boardDetailResult" >
-  		SELECT B.*, BI.*
+  		SELECT * FROM NOTICE
+  		
+  		<!-- SELECT B.*, BI.*
 		FROM NOTICE B
 			LEFT OUTER JOIN
 			BOARDIMG BI
 			ON (B.NUM = BI.NUM)
-		WHERE B.NUM = #{num}
+		WHERE B.NUM = #{num} -->
   	</select>
   	
   	<resultMap type="BoardDTO" id="boardDetailResult">
   		<!-- Primary key -->
   		<id column="NUM" property="num"/>
   		<!-- 그외 나머지 -->
-  		<result column="TITLE," property="title"/>
+  		<result column="TITLE" property="title"/>
   		<result column="CONTENTS" property="contents"/>
   		<result column="WRITER" property="writer"/>
   		<result column="REGDATE" property="regDate"/>
@@ -84,8 +77,8 @@
   		<selectKey keyProperty="num" resultType="Long" order="BEFORE">
   			SELECT BOARD_SEQ.NEXTVAL FROM DUAL
   		</selectKey>
-  		INSERT INTO NOTICE(NUM, TITLE, CONTENTS, WRITER, REGDATE, HIT)
-  		VALUES (#{num}, #{title}, #{contents}, #{writer}, #{regDate}, #{hit})
+  		INSERT INTO NOTICE(NUM, TITLE, CONTENTS, WRITER)
+  		VALUES (#{num}, #{title}, #{contents}, #{writer})
   	</insert>
   	
   	<delete id="setBoardDelete" parameterType="BoardDTO">
