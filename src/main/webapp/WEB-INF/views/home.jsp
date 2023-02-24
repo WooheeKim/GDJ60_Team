@@ -9,7 +9,7 @@
 <h1>
 	Hello world!  
 </h1>
-<h1>Gyuwon Lee</h1>
+<a href="">글목록보기</a>
 <P>  The time on the server is ${serverTime}. </P>
 </body>
 </html>
