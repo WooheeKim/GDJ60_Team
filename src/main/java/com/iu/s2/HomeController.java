@@ -1,4 +1,4 @@
-package com.s2.iu;
+package com.iu.s2;
 
 import java.text.DateFormat;
 import java.util.Date;

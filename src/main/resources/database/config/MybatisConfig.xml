@@ -10,6 +10,9 @@
 
     </settings> -->
   	<typeAliases>
-		
+  		<typeAlias type="java.lang.Long" alias="Long"/>/>
+		<typeAlias type="com.iu.s2.board.BoardDTO" alias="QNADTO"/>
+		<typeAlias type="com.iu.s2.qna.QNADTO" alias="QNADTO"/>
+		<typeAlias type="com.iu.s2.util.Pager" alias="Pager"/>
   	</typeAliases>
   </configuration>
