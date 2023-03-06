@@ -10,9 +10,23 @@
 
     </settings> -->
   	<typeAliases>
-  		<typeAlias type="java.lang.Long" alias="Long"/>/>
-		<typeAlias type="com.iu.s2.board.BoardDTO" alias="QNADTO"/>
-		<typeAlias type="com.iu.s2.qna.QNADTO" alias="QNADTO"/>
+  		<typeAlias type="com.iu.s2.product.ProductDTO" alias="ProductDTO"/>
+  		
+		<typeAlias type="com.iu.s2.bankBook.BankBookDTO" alias="BankBookDTO" />
+		<typeAlias type="com.iu.s2.bankBook.BankBookImgDTO" alias="BankBookImgDTO" />
+		<typeAlias type="com.iu.s2.bankBook.BankBookCommentDTO" alias="BankBookCommentDTO"/>
+		
+		<typeAlias type="com.iu.s2.board.BbsDTO" alias="BbsDTO"/>
+		<typeAlias type="com.iu.s2.board.BoardDTO" alias="BoardDTO"/>
+		<typeAlias type="com.iu.s2.board.BoardFileDTO" alias="BoardFileDTO"/>
+		<typeAlias type="com.iu.s2.board.notice.NoticeDTO" alias="NoticeDTO"/>
+		<typeAlias type="com.iu.s2.board.qna.QnaDTO" alias="QnaDTO"/>
+		
+		<typeAlias type="com.iu.s2.member.MemberDTO" alias="MemberDTO"/>
+		<typeAlias type="com.iu.s2.member.RoleDTO" alias="RoleDTO"/>
+		
 		<typeAlias type="com.iu.s2.util.Pager" alias="Pager"/>
+		
+  		<typeAlias type="java.lang.Long" alias="Long"/>
   	</typeAliases>
   </configuration>
